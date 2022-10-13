@@ -9,7 +9,7 @@
 </head>
 <body>
     <div id="parent">
-        <header></header>
+        <header>420-320 Project 1 - Academic Project Management</header>
         <main>
             <section id="input-section">
                 <form>
@@ -27,36 +27,43 @@
                         </div>   
                         <div>
                             <div class="input-container">
-                                <label></label>
-                                <input>
+                                <label for="title">Title</label>
+                                <input id="title" type="text" required>
                             </div>
                             <div class="input-container">
-                                <label></label>
-                                <input>
+                                <label for="category">Category</label>
+                                <select id="category">
+                                    <option value="null">----------</option>
+                                    <option value="practical">Practical</option>
+                                    <option value="theoretical">Theoretical</option>
+                                    <option value="fundamental research">Fundamental research</option>
+                                    <option value="empirical">Empirical</option>
+                                </select>
                             </div>
                         </div>    
                         <div>
                             <div class="input-container">
-                                <label></label>
-                                <input>
+                                <label for="hours">Hours</label>
+                                <input id="hours" type="number" required>
                             </div>
                             <div class="input-container">
-                                <label></label>
-                                <input>
+                                <label for="rate">Rate</label>
+                                <input id="rate" type="number" required>
                             </div>
                             <div class="input-container">
-                                <label></label>
-                                <input>
+                                <label for="status">Status</label>
+                                <select id="status">
+                                    <option value="null">----------</option>
+                                    <option value="completed">Completed</option>
+                                    <option value="ongoing">Ongoing</option>
+                                    <option value="planned">Planned</option>
+                                </select>
                             </div>
                         </div>   
                         <div>
-                            <div class="input-container">
-                                <label></label>
-                                <input>
-                            </div>
-                            <div class="input-container">
-                                <label></label>
-                                <input>
+                            <div class="last-input-container input-container">
+                                <label for="description">Short description</label>
+                                <textarea id="description"></textarea>
                             </div>
                         </div> 
                     </fieldset>
@@ -66,9 +73,35 @@
                     </div>
                 </form>   
             </section>
-            <section id="output-section"></section>
+            <section id="output-section">
+                <div id="output-buttons-parent">
+                    <button>Save local</button>
+                    <button>Append local</button>
+                    <button>Clear local</button>
+                    <button>Load local</button>
+                </div>
+                <input id="query" type="text" placeholder="Enter your query...">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>proj_id</th>
+                            <th>owner</th>
+                            <th>proj_title</th>
+                            <th>category</th>
+                            <th>proj_status</th>
+                            <th>nber_hours</th>
+                            <th>rate</th>
+                            <th>proj_descr</th>
+                            <th>edit</th>
+                            <th>delete</th>
+                        </tr>
+                    </thead>
+                </table>
+            </section>
         </main>
-        <footer></footer>
+        <footer>Marko Litovchenko, 2133905, section 2, copyright Fall 2022 <br>
+                Student 2, id, section, copyright Fall 2022
+        </footer>
     </div>
 </body>
 </html>
