@@ -1,8 +1,10 @@
+let field_valid = getFieldValid();
+
 function validateRouter(ev){
     let event = ev.target;
     let id = event.id;
     switch(id){
-        case 'project-id':
+        case 'id':
             validateProjectId(event);
             break;
         case 'owner':
@@ -20,86 +22,164 @@ function validateRouter(ev){
         case 'rate':
             validateRate(event);
             break;
+        case 'status':
+        validateStatus(event);
+            break;
         case 'description':
             validateDescription(event);
             break;
-        case 'status':
-            validateStatus(event);
-            break;
     }
 }
+
+function showErrorMessageIfInvalid(event, id){
+    let errorMsg = document.getElementById(id+"-error");
+    if (field_valid[`${id}`] && errorMsg !== null){
+        event.parentElement.parentElement.removeChild(errorMsg);
+    } else if (!field_valid[`${id}`] && errorMsg === null){
+        errorMsg = document.createElement("div");
+        errorMsg.classList += "error-message";
+        errorMsg.setAttribute("id", id+"-error");
+        if (event.tagName.toLowerCase() === "input" || event.tagName.toLowerCase() === "textarea"){ errorMsg.textContent = "Wrong format for project " + id; }
+        else if (event.tagName.toLowerCase() === "select"){ errorMsg.textContent = "You must select a project " + id; }
+        event.parentElement.parentElement.insertBefore(errorMsg, event.parentElement);
+    }
+    let image = document.getElementById(id+"-img");
+    if (image === null){
+        image = document.createElement("img");
+        event.parentElement.appendChild(image);
+        image.setAttribute("id", `${id}-img`);
+    }
+    image.setAttribute("src", field_valid[`${id}`] ? "../images/valid.png" : "../images/invalid.png");
+}
+
 function validateProjectId(event) {
+    let id = event.id;
     let value = event.value;
     const PATTERN = /^[A-Za-z]([a-zA-Z0-9-_$]){2,9}$/;
-    field_valid['project-id'] = PATTERN.test(value);
-    console.log(field_valid['project-id']);
-    buttonEnb()
-    return field_valid['project-id'];
+    field_valid[`${id}`] = PATTERN.test(value);
+
+    buttonEnb();
+    showErrorMessageIfInvalid(event, id);
+
+    return field_valid[`${id}`];
 }
 function validateOwner(event) {
+    let id = event.id;
     let value = event.value;
     const PATTERN = /^[A-Za-z]([a-zA-Z0-9-]){2,9}$/;
-    field_valid['owner'] = PATTERN.test(value);
-    console.log(field_valid['owner']);
-    buttonEnb()
-    return field_valid['owner'];
+    field_valid[`${id}`] = PATTERN.test(value);
+
+    showErrorMessageIfInvalid(event, id);
+    buttonEnb();
+
+    return field_valid[`${id}`];
 }
 function validateTitle(event) {
+    let id = event.id;
     let value = event.value;
     const PATTERN = /^[A-Za-z]{3,25}$/;
-    field_valid['title'] = PATTERN.test(value);
-    console.log(field_valid['title']);
-    buttonEnb()
-    return field_valid['title'];
+    field_valid[`${id}`] = PATTERN.test(value);
+
+    buttonEnb();
+    showErrorMessageIfInvalid(event, id);
+
+    return field_valid[`${id}`];
 }
 function validateCategory(event) {
+    let id = event.id;
     let value = event.value;
-    field_valid['category'] = value != null;
-    console.log(field_valid['category']);
-    buttonEnb()
-    return field_valid['category'];
+    console.log(value);
+    field_valid[`${id}`] = value !== "null";
+
+    buttonEnb();
+    showErrorMessageIfInvalid(event, id);
+
+    return field_valid[`${id}`];
 }
 function validateHours(event) {
+    let id = event.id;
     let value = event.value;
     const PATTERN = /^[0-9]{1,3}$/;
-    field_valid['hours'] = PATTERN.test(value);
-    console.log(field_valid['hours']);
-    buttonEnb()
-    return field_valid['hours'];
+    field_valid[`${id}`] = PATTERN.test(value);
+
+    buttonEnb();
+    showErrorMessageIfInvalid(event, id);
+
+    return field_valid[`${id}`];
 }
 function validateRate(event) {
+    let id = event.id;
     let value = event.value;
     const PATTERN = /^[0-9]{1,3}$/;
-    field_valid['rate'] = PATTERN.test(value);
-    console.log(field_valid['rate']);
-    buttonEnb()
-    return field_valid['rate'];
+    field_valid[`${id}`] = PATTERN.test(value);
+
+    buttonEnb();
+    showErrorMessageIfInvalid(event, id);
+    
+    return field_valid[`${id}`];
 }
 function validateDescription(event) {
+    let id = event.id;
     let value = event.value;
     const PATTERN = /^[A-Za-z]{3,25}$/;
-    field_valid['description'] = PATTERN.test(value);
-    console.log(field_valid['description']);
-    buttonEnb()
-    return field_valid['description'];
+    field_valid[`${id}`] = PATTERN.test(value);
+
+    buttonEnb();
+    showErrorMessageIfInvalid(event, id);
+
+    return field_valid[`${id}`];
 }
 function validateStatus(event) {
+    let id = event.id;
     let value = event.value;
-    field_valid['status'] = value != null;
-    console.log(field_valid['status']);
-    buttonEnb()
-    return field_valid['status'];
+    field_valid[`${id}`] = value !== "null";
+
+    buttonEnb();
+    showErrorMessageIfInvalid(event, id);
+
+    return field_valid[`${id}`];
 }
 function buttonEnb(){
     let button = document.getElementById('submit');
     let valid = true;
     for (let key in field_valid) {
-        console.log(`${field_valid[key]} - ${key}`);
+        //console.log(`${field_valid[key]} - ${key}`);
         if (field_valid[key] === false) {
             valid = false;
             break;
         }
     }
-    console.log(`Is button enabled? ${valid}`);
+    //console.log(`Is button enabled? ${valid}`);
     button.disabled = !valid;
+}
+function clearAllErrorMessages(){
+    let errorMessages = document.querySelectorAll(".error-message");
+    for (let error of errorMessages){
+        error.parentElement.removeChild(error);
+    }
+
+    let images = document.querySelectorAll("img");
+    for (let image of images){
+        image.parentElement.removeChild(image);
+    }
+}
+
+function validateAllFields(){
+    let id = document.getElementById("id");
+    let owner = document.getElementById("owner");
+    let title = document.getElementById("title");
+    let category = document.getElementById("category");
+    let hours = document.getElementById("hours");
+    let rate = document.getElementById("rate");
+    let status = document.getElementById("status");
+    let description = document.getElementById("description");
+
+    validateProjectId(id);
+    validateOwner(owner);
+    validateTitle(title);
+    validateCategory(category);
+    validateHours(hours);
+    validateRate(rate);
+    validateStatus(status);
+    validateDescription(description);
 }
