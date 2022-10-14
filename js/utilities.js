@@ -103,3 +103,14 @@ function buttonEnb(){
     console.log(`Is button enabled? ${valid}`);
     button.disabled = !valid;
 }
+function clearField(){
+    let field = document.querySelectorAll('div.input-container>input,select,textarea');
+    field.forEach((f)=>{
+        if(f.tagName === 'select'){
+            f.value = `null`
+        }
+        else {
+            f.value = ''
+        }
+    })
+}
