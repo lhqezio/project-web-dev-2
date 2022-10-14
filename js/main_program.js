@@ -16,7 +16,8 @@ window.addEventListener('DOMContentLoaded', init);
 function init() {
     document.getElementById('submit').disabled = true;
     document.getElementById('reset').addEventListener("click", clearAllErrorMessages);
-    document.getElementById('input-section').addEventListener('change', validateRouter);
+    //Use focusout as a trigger to validate the field as blur does not support bubbling
+    document.getElementById('input-section').addEventListener('focusout', validateRouter);
     clearAllErrorMessages();
 }
 
