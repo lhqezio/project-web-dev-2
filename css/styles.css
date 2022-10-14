@@ -34,8 +34,7 @@ form{
 }
 fieldset{
     display: flex;
-    height: 70%;
-    box-sizing: border-box;
+    height: 80%;
 }
 legend{
     background-color: lightgray;
@@ -52,10 +51,10 @@ fieldset > div {
     padding: 0.5rem;
 }
 
-.input-container {
+.input-container{
     background-color: lightgray;
     padding: 0.25rem;
-    height: 20%;
+    height: 2rem;
     min-height: 1.5rem;
     display: flex;
 }
@@ -72,13 +71,14 @@ label{
 }
 input, select{
     height: 100%;
+    width: 60%;
     box-sizing: border-box;
     margin: 0;
 }
 
 #input-buttons-parent, #output-buttons-parent{
     width: 100%;
-    height: 30%;
+    height: 20%;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -115,15 +115,32 @@ button{
     font-size: 1rem;
     font-weight: bold;
 }
+button:disabled{
+    background-color: gray;
+}
+img{
+    width: 10%;
+}
 .last-input-container {
     height: 100%;
     flex-direction: column;
 }
-.last-input-container label{
+.last-input-container div{
+    display: flex;
+    align-items: center;
     flex: 1;
+}
+.last-input-container div img{
+    height: 50%;
 }
 .last-input-container textarea{
     flex: 2;
+}
+.error-message{
+    background-color: rgb(162, 15, 15);
+    color: white;
+    font-weight: bold;
+    padding: 0.1rem;
 }
 header, footer{
     height: 10%;

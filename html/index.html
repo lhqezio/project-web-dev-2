@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/styles.css">
     <script src="../js/main_program.js" ></script>
     <script src="../js/utilities.js"></script>
@@ -20,19 +20,26 @@
                         <legend>Fill In All Required Fields</legend>
                         <div>
                             <div class="input-container">
-                                <label for="project-id">Project Id</label>
-                                <input id="project-id" type="text" required>
+                                <label for="id">Project Id</label>
+                                <input id="id" type="text" required>
+                                <img id="id-img" src="../images/invalid.png">  
                             </div>
+                            
                             <div class="input-container">
                                 <label for="owner">Owner name</label>
                                 <input id="owner" type="text" required>
+                                <img id="owner-img" src="../images/invalid.png">
                             </div>
+                           
                         </div>   
                         <div>
                             <div class="input-container">
                                 <label for="title">Title</label>
                                 <input id="title" type="text" required>
+                                <img id="title-img" src="../images/invalid.png">
                             </div>
+                            
+                            <div id="title-error"></div>
                             <div class="input-container">
                                 <label for="category">Category</label>
                                 <select id="category">
@@ -42,17 +49,23 @@
                                     <option value="fundamental research">Fundamental research</option>
                                     <option value="empirical">Empirical</option>
                                 </select>
+                                <img id="category-img" src="../images/invalid.png">
                             </div>
+                            
                         </div>    
                         <div>
                             <div class="input-container">
                                 <label for="hours">Hours</label>
                                 <input id="hours" type="number" required>
+                                <img id="hours-img" src="../images/invalid.png">
                             </div>
+                            
                             <div class="input-container">
                                 <label for="rate">Rate</label>
                                 <input id="rate" type="number" required>
+                                <img id="rate-img" src="../images/invalid.png">
                             </div>
+                            
                             <div class="input-container">
                                 <label for="status">Status</label>
                                 <select id="status">
@@ -61,11 +74,16 @@
                                     <option value="ongoing">Ongoing</option>
                                     <option value="planned">Planned</option>
                                 </select>
+                                <img id="status-img" src="../images/invalid.png">
                             </div>
+                            
                         </div>   
                         <div>
                             <div class="last-input-container input-container">
-                                <label for="description">Short description</label>
+                                <div>
+                                    <label for="description">Short description</label>
+                                    <img id="description-img" src="../images/invalid.png">
+                                </div>
                                 <textarea id="description"></textarea>
                             </div>
                         </div> 
@@ -83,7 +101,7 @@
                     <button>Clear local</button>
                     <button>Load local</button>
                 </div>
-                <label for="query"></label><input id="query" type="text" placeholder="Enter your query...">
+                <input id="query" type="text" placeholder="Enter your query...">
                 <table>
                     <thead>
                         <tr>
