@@ -5,7 +5,7 @@
     <!--<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
     <link rel="stylesheet" href="../css/styles.css">
-    <script src="../js/main_program.js"></script>
+    <script src="../js/main_program.js" ></script>
     <script src="../js/utilities.js"></script>
     <script src="../js/manage_projects.js"></script>
     <title>Main</title>
@@ -71,7 +71,7 @@
                         </div> 
                     </fieldset>
                     <div id="input-buttons-parent">
-                        <button type="submit">Add</button>
+                        <button type="submit" id="submit">Add</button>
                         <button type="reset">Reset</button>
                     </div>
                 </form>   
@@ -83,7 +83,7 @@
                     <button>Clear local</button>
                     <button>Load local</button>
                 </div>
-                <input id="query" type="text" placeholder="Enter your query...">
+                <label for="query"></label><input id="query" type="text" placeholder="Enter your query...">
                 <table>
                     <thead>
                         <tr>
