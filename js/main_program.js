@@ -9,7 +9,10 @@ let fieldValid = {
     description: false,
     status: false,
 }
-let projArr = {};
+
+let projArr = [];
+
+
 
 window.addEventListener('DOMContentLoaded', init);
 
@@ -18,8 +21,12 @@ function init() {
     document.getElementById('reset').addEventListener("click", clearAllErrorMessages);
     //Use focusout as a trigger to validate the field as blur does not support bubbling
     document.getElementById('input-section').addEventListener('focusout', validateRouter);
+
+    document.getElementById('submit').addEventListener('click', addProject);
+
     clearAllErrorMessages();
 }
+
 
 function getFieldValid(){
     return fieldValid;
