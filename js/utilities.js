@@ -1,8 +1,6 @@
 function validateRouter(ev){
-    console.log(`ran validateRouter`);
     let event = ev.target;
     let id = event.id;
-    console.log(`id: ${id}`);
     switch(id){
         case 'project-id':
             validateProjectId(event);
@@ -96,6 +94,7 @@ function buttonEnb(){
     let button = document.getElementById('submit');
     let valid = true;
     for (let key in field_valid) {
+        console.log(`${field_valid[key]} - ${key}`);
         if (field_valid[key] === false) {
             valid = false;
             break;
