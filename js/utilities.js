@@ -54,7 +54,7 @@ function validateTitle(event) {
 }
 function validateCategory(event) {
     let value = event.value;
-    field_valid['category'] = value != null;
+    field_valid['category'] = value !== `null`;
     console.log(field_valid['category']);
     buttonEnb()
     return field_valid['category'];
@@ -85,7 +85,7 @@ function validateDescription(event) {
 }
 function validateStatus(event) {
     let value = event.value;
-    field_valid['status'] = value != null;
+    field_valid['status'] = value !== `null`;
     console.log(field_valid['status']);
     buttonEnb()
     return field_valid['status'];
