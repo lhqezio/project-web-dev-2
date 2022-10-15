@@ -106,7 +106,13 @@ th{
     height: 2rem;
     border: 2px solid white;
 }
-
+tr{
+    background-color: rgb(214, 204, 204);
+}
+td{
+    text-align: center;
+    border: 1px solid white;
+}
 button{
     height: 60%;
     background-color: blue;
