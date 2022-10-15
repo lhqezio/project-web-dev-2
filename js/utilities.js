@@ -199,3 +199,7 @@ function clearFields() {
     }
     clearAllErrorMessages();
 }
+function disableButton(){
+    let button = document.getElementById('submit');
+    button.disabled = true;
+}
