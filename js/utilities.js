@@ -152,6 +152,7 @@ function buttonEnb(){
     //console.log(`Is button enabled? ${valid}`);
     button.disabled = !valid;
 }
+//To clear all the error and verified messages
 function clearAllErrorMessages(){
     let errorMessages = document.querySelectorAll(".error-message");
     for (let error of errorMessages){
@@ -164,7 +165,8 @@ function clearAllErrorMessages(){
     }
 }
 
-function validateAllFields(){
+/**
+    function validateAllFields(){
     let id = document.getElementById("id");
     let owner = document.getElementById("owner");
     let title = document.getElementById("title");
@@ -183,6 +185,8 @@ function validateAllFields(){
     validateStatus(status);
     validateDescription(description);
 }
+ */
+//To clear all input fields and error messages when add button is clicked
 function clearFields() {
     let inputs = document.querySelectorAll('div.input-container input, div.input-container select, div.input-container textarea');
     for (let input of inputs) {
