@@ -9,7 +9,6 @@ let fieldValid = {
     description: false,
     status: false,
 }
-let projArr = {};
 
 window.addEventListener('DOMContentLoaded', init);
 
