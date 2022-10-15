@@ -183,3 +183,15 @@ function validateAllFields(){
     validateStatus(status);
     validateDescription(description);
 }
+function clearFields() {
+    let inputs = document.querySelectorAll('div.input-container input, div.input-container select, div.input-container textarea');
+    for (let input of inputs) {
+        if(input.tagName.toLowerCase() === "select"){
+            input.value = "null";
+        }
+        else{
+            input.value = null;
+        }
+    }
+    clearAllErrorMessages();
+}
