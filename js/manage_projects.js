@@ -19,47 +19,40 @@ function projRender() {
 
     projArr.forEach(tableCreator)
     function tableCreator(elem,i){
-        let row = document.createElement('tr');
-        let cell = document.createElement('td');
-        let editImg = document.createElement('img');
-        let trashImg = document.createElement('img');
+        let editImg = document.createElement('img')
+        let trashImg = document.createElement('img')
         editImg.src = '../images/edit.png';
         editImg.setAttribute('id',`e${i}` );
-        editImg.setAttribute('class','edit');
+        editImg.setAttribute('class','table-button');
         trashImg.src = '../images/trash.png';
         trashImg.setAttribute('id',`t${i}` );
-        trashImg.setAttribute('class','trash');
-        cell.innerHTML = elem.id;
-        row.appendChild(cell);
-        cell = document.createElement('td');
-        cell.innerHTML = elem.owner;
-        row.appendChild(cell);
-        cell = document.createElement('td');
-        cell.innerHTML = elem.title;
-        row.appendChild(cell);
-        cell = document.createElement('td');
-        cell.innerHTML = elem.category;
-        row.appendChild(cell);
-        cell = document.createElement('td');
-        cell.innerHTML = elem.status;
-        row.appendChild(cell);
-        cell = document.createElement('td');
-        cell.innerHTML = elem.hours;
-        row.appendChild(cell);
-        cell = document.createElement('td');
-        cell.innerHTML = elem.rate;
-        row.appendChild(cell);
-        cell = document.createElement('td');
-        cell.innerHTML = elem.description;
-        row.appendChild(cell);
-        //BUG HERE IMAGE WOULD NOT SHOW
-        cell = document.createElement('td');
-        cell.appendChild(editImg);
-        row.appendChild(cell);
-        cell = document.createElement('td');
-        cell.appendChild(trashImg);
-        row.appendChild(cell);
-        projTable.appendChild(row);
+        trashImg.setAttribute('class','table-button');
+        let row = projTable.insertRow(i)
+        let cell = row.insertCell(0)
+        cell.innerHTML = elem.id
+        cell = row.insertCell(1)
+        cell.innerHTML = elem.owner
+        cell = row.insertCell(2)
+        cell.innerHTML = elem.title
+        cell = row.insertCell(3)
+        cell.innerHTML = elem.category
+        cell = row.insertCell(4)
+        cell.innerHTML = elem.status
+        cell = row.insertCell(5)
+        cell.innerHTML = elem.hours
+        cell = row.insertCell(6)
+        cell.innerHTML = elem.rate
+        cell = row.insertCell(7)
+        cell.innerHTML = elem.description
+        editImg.onload = ()=>{
+            cell = row.insertCell(8)
+            cell.appendChild(editImg)
+        }
+        trashImg.onload = ()=>{
+            cell = row.insertCell(9)
+            cell.appendChild(trashImg)
+        }
+        
     }
     document.getElementById('proj-table').replaceChild(projTable, document.getElementById('proj-table').lastChild);
 }
