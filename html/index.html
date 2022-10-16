@@ -38,8 +38,7 @@
                                 <input id="title" type="text" required>
                                 <img id="title-img" src="../images/invalid.png">
                             </div>
-                            
-                            <div id="title-error"></div>
+                        
                             <div class="input-container">
                                 <label for="category">Category</label>
                                 <select id="category">
@@ -89,7 +88,7 @@
                         </div> 
                     </fieldset>
                     <div id="input-buttons-parent">
-                        <button type="submit" id="submit">Add</button>
+                        <button type="button" id="submit">Add</button>
                         <button type="reset" id="reset">Reset</button>
                     </div>
                 </form>   
@@ -102,7 +101,7 @@
                     <button>Load local</button>
                 </div>
                 <input id="query" type="text" placeholder="Enter your query...">
-                <table>
+                <table id="proj-table">
                     <thead>
                         <tr>
                             <th>proj_id</th>
@@ -117,11 +116,12 @@
                             <th>delete</th>
                         </tr>
                     </thead>
+                    <tbody></tbody>
                 </table>
             </section>
         </main>
         <footer>Marko Litovchenko, 2133905, section 2, copyright Fall 2022 <br>
-                Student 2, id, section, copyright Fall 2022
+                Hoang Quoc Le, 2131769, section 2, copyright Fall 2022
         </footer>
     </div>
 </body>

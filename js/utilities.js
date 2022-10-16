@@ -152,6 +152,7 @@ function buttonEnb(){
     //console.log(`Is button enabled? ${valid}`);
     button.disabled = !valid;
 }
+//To clear all the error and verified messages
 function clearAllErrorMessages(){
     let errorMessages = document.querySelectorAll(".error-message");
     for (let error of errorMessages){
@@ -162,7 +163,9 @@ function clearAllErrorMessages(){
     for (let image of images){
         image.parentElement.removeChild(image);
     }
+    disableButton();
 }
+
 
 function validateAllFields(){
     let id = document.getElementById("id");
@@ -174,12 +177,30 @@ function validateAllFields(){
     let status = document.getElementById("status");
     let description = document.getElementById("description");
 
-    validateProjectId(id);
-    validateOwner(owner);
-    validateTitle(title);
-    validateCategory(category);
-    validateHours(hours);
-    validateRate(rate);
-    validateStatus(status);
-    validateDescription(description);
+    if (id.value !== "")              validateProjectId(id);
+    if (owner.value !== "")           validateOwner(owner);
+    if (title.value !== "")           validateTitle(title);
+    if (category.value !== "null")    validateCategory(category);
+    if (hours.value != "")            validateHours(hours);
+    if (rate.value != "")             validateRate(rate);
+    if (status.value !== "null")      validateStatus(status);
+    if (description.value !== "")     validateDescription(description);
+}
+ 
+//To clear all input fields and error messages when add button is clicked
+function clearFields() {
+    let inputs = document.querySelectorAll('div.input-container input, div.input-container select, div.input-container textarea');
+    for (let input of inputs) {
+        if(input.tagName.toLowerCase() === "select"){
+            input.value = "null";
+        }
+        else{
+            input.value = null;
+        }
+    }
+    clearAllErrorMessages();
+}
+function disableButton(){
+    let button = document.getElementById('submit');
+    button.disabled = true;
 }

@@ -1,6 +1,6 @@
 'use strict'
 let fieldValid = {
-    'project-id': false,
+    'id': false,
     owner: false,
     title: false,
     category: false,
@@ -9,14 +9,18 @@ let fieldValid = {
     description: false,
     status: false,
 }
+let projArr = [];
 
 window.addEventListener('DOMContentLoaded', init);
 
 function init() {
-    document.getElementById('submit').disabled = true;
+    disableButton();
+    document.getElementById('submit').addEventListener('click', createProjectObject);
     document.getElementById('reset').addEventListener("click", clearAllErrorMessages);
-    document.getElementById('input-section').addEventListener('change', validateRouter);
+    //Use focusout as a trigger to validate the field as blur does not support bubbling
+    document.getElementById('input-section').addEventListener('focusout', validateRouter);
     clearAllErrorMessages();
+    validateAllFields();
 }
 
 function getFieldValid(){
