@@ -6,32 +6,49 @@ function validateRouter(ev){
     switch(id){
         case 'id':
             validateProjectId(event);
+            buttonEnb();
+            showErrorMessageIfInvalid(event);
             break;
         case 'owner':
             validateOwner(event);
+            buttonEnb();
+            showErrorMessageIfInvalid(event);
             break;
         case 'title':
             validateTitle(event);
+            buttonEnb();
+            showErrorMessageIfInvalid(event);
             break;
         case 'category':
             validateCategory(event);
+            buttonEnb();
+            showErrorMessageIfInvalid(event);
             break;
         case 'hours':
             validateHours(event);
+            buttonEnb();
+            showErrorMessageIfInvalid(event);
             break;
         case 'rate':
             validateRate(event);
+            buttonEnb();
+            showErrorMessageIfInvalid(event);
             break;
         case 'status':
-        validateStatus(event);
+            validateStatus(event);
+            buttonEnb();
+            showErrorMessageIfInvalid(event);
             break;
         case 'description':
             validateDescription(event);
+            buttonEnb();
+            showErrorMessageIfInvalid(event);
             break;
     }
 }
 
-function showErrorMessageIfInvalid(event, id){
+function showErrorMessageIfInvalid(event){
+    let id = event.id;
     let errorMsg = document.getElementById(id+"-error");
     if (field_valid[`${id}`] && errorMsg !== null){
         event.parentElement.parentElement.removeChild(errorMsg);
@@ -52,91 +69,51 @@ function showErrorMessageIfInvalid(event, id){
     image.setAttribute("src", field_valid[`${id}`] ? "../images/valid.png" : "../images/invalid.png");
 }
 
-function validateProjectId(event) {
-    let id = event.id;
+function validateProjectId(event,id=event.id) {
     let value = event.value;
     const PATTERN = /^[A-Za-z]([a-zA-Z0-9-_$]){2,9}$/;
     field_valid[`${id}`] = PATTERN.test(value);
-
-    buttonEnb();
-    showErrorMessageIfInvalid(event, id);
-
     return field_valid[`${id}`];
 }
-function validateOwner(event) {
-    let id = event.id;
+function validateOwner(event,id=event.id) {
     let value = event.value;
     const PATTERN = /^[A-Za-z]([a-zA-Z0-9-]){2,9}$/;
     field_valid[`${id}`] = PATTERN.test(value);
-
-    showErrorMessageIfInvalid(event, id);
-    buttonEnb();
-
     return field_valid[`${id}`];
 }
-function validateTitle(event) {
-    let id = event.id;
+function validateTitle(event,id=event.id) {
     let value = event.value;
     const PATTERN = /^[A-Za-z]{3,25}$/;
     field_valid[`${id}`] = PATTERN.test(value);
-
-    buttonEnb();
-    showErrorMessageIfInvalid(event, id);
-
     return field_valid[`${id}`];
 }
-function validateCategory(event) {
-    let id = event.id;
+function validateCategory(event,id=event.id) {
     let value = event.value;
     console.log(value);
     field_valid[`${id}`] = value !== "null";
-
-    buttonEnb();
-    showErrorMessageIfInvalid(event, id);
-
     return field_valid[`${id}`];
 }
-function validateHours(event) {
-    let id = event.id;
+function validateHours(event,id=event.id) {
     let value = event.value;
     const PATTERN = /^[0-9]{1,3}$/;
     field_valid[`${id}`] = PATTERN.test(value);
-
-    buttonEnb();
-    showErrorMessageIfInvalid(event, id);
-
     return field_valid[`${id}`];
 }
-function validateRate(event) {
-    let id = event.id;
+function validateRate(event,id=event.id) {
     let value = event.value;
     const PATTERN = /^[0-9]{1,3}$/;
     field_valid[`${id}`] = PATTERN.test(value);
-
-    buttonEnb();
-    showErrorMessageIfInvalid(event, id);
-    
     return field_valid[`${id}`];
 }
-function validateDescription(event) {
-    let id = event.id;
+function validateDescription(event,id=event.id) {
     let value = event.value;
     const PATTERN = /^[A-Za-z]{3,25}$/;
     field_valid[`${id}`] = PATTERN.test(value);
-
-    buttonEnb();
-    showErrorMessageIfInvalid(event, id);
-
     return field_valid[`${id}`];
 }
-function validateStatus(event) {
-    let id = event.id;
+function validateStatus(event,id=event.id) {
     let value = event.value;
     field_valid[`${id}`] = value !== "null";
-
-    buttonEnb();
-    showErrorMessageIfInvalid(event, id);
-
     return field_valid[`${id}`];
 }
 function buttonEnb(){
@@ -159,13 +136,14 @@ function clearAllErrorMessages(){
         error.parentElement.removeChild(error);
     }
 
-    let images = document.querySelectorAll("img");
+    let images = document.querySelectorAll("#input-section img");
     for (let image of images){
         image.parentElement.removeChild(image);
     }
+    disableButton();
 }
 
-/**
+
     function validateAllFields(){
     let id = document.getElementById("id");
     let owner = document.getElementById("owner");
@@ -185,7 +163,12 @@ function clearAllErrorMessages(){
     validateStatus(status);
     validateDescription(description);
 }
- */
+
+function resetAllFields(){
+    for (let key in field_valid) {
+        field_valid[key] = false;
+    }
+}
 //To clear all input fields and error messages when add button is clicked
 function clearFields() {
     let inputs = document.querySelectorAll('div.input-container input, div.input-container select, div.input-container textarea');
@@ -202,4 +185,128 @@ function clearFields() {
 function disableButton(){
     let button = document.getElementById('submit');
     button.disabled = true;
+}
+
+function editProject(id) {
+    id = Number(id.substring(1));
+    console.log(id);
+    let row = document.createElement("tr");
+    row.setAttribute("id", `r${id}`);
+    let cell;
+    let input;
+    let saveImage = document.createElement("img");
+    let cancelImage = document.createElement("img");
+    cancelImage.setAttribute("src", "../images/cancel.png");
+    cancelImage.setAttribute("id", `c${id}`);
+    cancelImage.setAttribute(`class`, "table-button");
+    saveImage.setAttribute("src", "../images/save.png");
+    saveImage.setAttribute("id", `s${id}`);
+    saveImage.setAttribute(`class`, "table-button");
+    let i = 0;
+    console.log(id);
+    for (const [key, value] of Object.entries(projArr[id])) {
+        cell = row.insertCell(i);
+        input = document.createElement("input");
+        input.setAttribute("type", "text");
+        input.setAttribute("id", `edit-${key}`);
+        input.setAttribute("value", String(value));
+        if (key === "id") {
+            input.setAttribute("disabled", "true");
+        }
+        cell.appendChild(input);
+        i++;
+    }
+    console.log(`ran ${i}`);
+    saveImage.onload = () => {
+        console.log(`save image loaded`);
+        cell = document.createElement("td");
+        row.appendChild(cell);
+        cell.appendChild(saveImage);
+        // Timeout to allow the image to load
+        setTimeout(() => {
+            console.log(`cancel image loaded`);
+            cell = document.createElement("td");
+            cell.appendChild(cancelImage);
+            row.appendChild(cell);
+            let oldRow = document.getElementById(`r${id}`);
+            tempRow[id] = oldRow.cloneNode(true);
+            document.getElementById("proj-table-body").replaceChild(row, oldRow);
+        }, 100);
+    };
+}
+function cancelEdit(id) {
+    let i = Number(id.substring(1));
+    let row = tempRow[i];
+    let oldRow = document.getElementById(`r${i}`);
+    document.getElementById("proj-table-body").replaceChild(row, oldRow);
+}
+function saveEdit(id){
+    let i = Number(id.substring(1));
+    resetAllFields();
+    validateProjectId(document.getElementById("edit-id"),"id");
+    validateHours(document.getElementById("edit-hours"), "hours");
+    validateRate(document.getElementById("edit-rate"), "rate");
+    validateDescription(document.getElementById("edit-description"), "description");
+    validateStatus(document.getElementById("edit-status"), "status");
+    validateOwner(document.getElementById("edit-owner"), "owner");
+    validateTitle(document.getElementById("edit-title"), "title");
+    validateCategory(document.getElementById("edit-category"), "category");
+    let valid = true;
+    for (let key in field_valid) {
+        if (field_valid[key] === false) {
+            valid = false;
+            break;
+        }
+    }
+    if(valid){
+        let project = {
+            id: document.getElementById("edit-id").value,
+            owner: document.getElementById("edit-owner").value,
+            title: document.getElementById("edit-title").value,
+            category: document.getElementById("edit-category").value,
+            status: document.getElementById("edit-status").value,
+            hours: document.getElementById("edit-hours").value,
+            rate: document.getElementById("edit-rate").value,
+            description: document.getElementById("edit-description").value
+        }
+        projArr.splice(i, 1, project);
+        let row = document.createElement("tr");
+        row.setAttribute("id", `r${i}`);
+        let cell;
+        let j = 0;
+        for (const [key, value] of Object.entries(projArr[i])) {
+            cell = row.insertCell(j);
+            cell.innerHTML = String(value);
+            j++;
+        }
+        let editImg = document.createElement('img');
+        let trashImg = document.createElement('img');
+        editImg.src = '../images/edit.png';
+        editImg.setAttribute('id',`e${i}` );
+        editImg.setAttribute('class','table-button');
+        trashImg.src = '../images/trash.png';
+        trashImg.setAttribute('id',`t${i}` );
+        trashImg.setAttribute('class','table-button');
+        editImg.onload = ()=>{
+            cell = document.createElement('td');
+            cell.appendChild(editImg)
+            row.appendChild(cell);
+            setTimeout(()=>{
+                cell = document.createElement('td');
+                cell.appendChild(trashImg)
+                row.appendChild(cell);
+                document.getElementById("proj-table-body").replaceChild(row, document.getElementById(`r${i}`));
+            },200)
+        }
+    } else{
+        alert("Invalid data entered,not saved");
+        resetAllFields();
+    }
+}
+function deleteProject(id){
+    if(window.confirm("Are you sure you want to delete this project?")){
+        let projId = id.substring(1);
+        projArr.splice(projId, 1);
+        projRender();
+    }
 }
