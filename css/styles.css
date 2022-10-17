@@ -76,8 +76,7 @@ input, select{
     margin: 0;
 }
 .edit-delete{
-    width: 1.5rem;
-    height: 1.5rem;
+  
 }
 #input-buttons-parent, #output-buttons-parent{
     width: 100%;
@@ -115,6 +114,8 @@ tr{
 td{
     text-align: center;
     border: 1px solid white;
+    /* display: flex; */
+    width: 95px;
 }
 button{
     height: 60%;
@@ -128,7 +129,10 @@ button:disabled{
     background-color: gray;
 }
 img{
-    width: 10%;
+    width: 30px;
+}
+td img{
+    width: 20px;
 }
 .last-input-container {
     height: 100%;
