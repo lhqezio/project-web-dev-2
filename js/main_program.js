@@ -37,6 +37,7 @@ function init() {
     //Use focusout as a trigger to validate the field as blur does not support bubbling
     document.getElementById('input-section').addEventListener('focusout', validateRouter);
     clearAllErrorMessages();
+    validateAllFields();
 }
 
 function getFieldValid(){
