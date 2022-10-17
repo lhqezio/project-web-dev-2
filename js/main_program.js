@@ -1,6 +1,6 @@
 'use strict'
 let fieldValid = {
-    'id': false,
+    id: false,
     owner: false,
     title: false,
     category: false,
