@@ -11,14 +11,22 @@ function addProject() {
         description: document.getElementById('description').value,
     }
     projArr.push(project);
-    projRender();
+    projRender(getIndexArrFromProjArr(projArr));
 }
-function projRender() {
+function projRender(indexArr) {
+    console.log(indexArr);
     let projTable = document.createElement('tbody');
     projTable.id = 'proj-table-body';
 
-    projArr.forEach(tableCreator)
+    projArr.forEach(tableCreator);
+    console.log(projArr);
     function tableCreator(elem,i){
+        console.log("------");
+        console.log(i);
+        console.log(indexArr);
+        console.log(indexInArr(i, indexArr));
+        console.log("------");
+        if (!indexInArr(i, indexArr)) { return; }
         let editImg = document.createElement('img')
         let trashImg = document.createElement('img')
         editImg.src = '../images/edit.png';
@@ -31,12 +39,11 @@ function projRender() {
         row.id = `r${i}`;
         let cell;
         let j = 0;
-        for (const [key, value] of Object.entries(projArr[i])) {
+        for (const value of Object.values(projArr[i])) {
             cell = row.insertCell(j);
-            cell.innerHTML = String(value);
+            cell.textContent = String(value);
             j++;
         }
-        console.log(`ran ${i}`);
         editImg.onload = ()=>{
             cell = document.createElement('td');
             cell.appendChild(editImg)
@@ -51,6 +58,7 @@ function projRender() {
         }
     }
     document.getElementById('proj-table').replaceChild(projTable, document.getElementById('proj-table').lastChild);
+
     // Disable due to debugging purposes
     /**
     clearFields();

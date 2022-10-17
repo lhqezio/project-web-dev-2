@@ -13,9 +13,12 @@ let projArr = [];
 
 let tempRow = [];
 window.addEventListener('DOMContentLoaded', init);
+
 function init() {
     disableButton();
-    document.getElementById(`proj-table`).addEventListener('click', (evt)=>{
+    document.getElementById("query").addEventListener("input", searchByKeyword);
+    document.getElementById("proj-table").addEventListener('click', (evt)=>{
+        console.log("here");
         if (evt.target.id.charAt(0) === 'e'&& evt.target.id.charAt(1) !== 'd'){
             editProject(evt.target.id);
         }
@@ -36,6 +39,7 @@ function init() {
     document.getElementById('input-section').addEventListener('focusout', validateRouter);
     clearAllErrorMessages();
     validateAllFields();
+    
 }
 
 function getFieldValid(){

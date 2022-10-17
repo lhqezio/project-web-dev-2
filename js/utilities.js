@@ -89,7 +89,6 @@ function validateTitle(event,id=event.id) {
 }
 function validateCategory(event,id=event.id) {
     let value = event.value;
-    console.log(value);
     field_valid[`${id}`] = value !== "null";
     return field_valid[`${id}`];
 }
@@ -154,6 +153,7 @@ function clearAllErrorMessages(){
     let status = document.getElementById("status");
     let description = document.getElementById("description");
 
+    
     validateProjectId(id);
     validateOwner(owner);
     validateTitle(title);
@@ -307,6 +307,42 @@ function deleteProject(id){
     if(window.confirm("Are you sure you want to delete this project?")){
         let projId = id.substring(1);
         projArr.splice(projId, 1);
-        projRender();
+        projRender(getIndexArrFromProjArr(projArr));
     }
+}
+
+function searchByKeyword(){
+    let keyWord = document.getElementById("query").value;
+    let indexArr = [];
+    if (keyWord === "") {projRender(getIndexArrFromProjArr(projArr));}
+    else {
+        projArr.filter((obj, i) => {
+            for (let value of Object.values(obj)){
+    
+                //console.log(`${value} : ${keyWord}`);
+                if (String(value) === keyWord){
+                    indexArr.push(+i);
+                    break;
+                }
+            }
+        });
+        console.log("called proj render");
+        projRender(indexArr);
+    }
+}
+function indexInArr(i, arr){
+    for (let j in arr){
+        if (i === arr[j]){
+            return true;
+        }
+    }
+    return false;
+}
+function getIndexArrFromProjArr(projArr){
+    let indexArr = [];
+    for (let i in projArr){
+        indexArr.push(+i);
+    }
+    console.log(indexArr);
+    return indexArr;
 }
