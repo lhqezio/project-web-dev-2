@@ -53,65 +53,65 @@ function showErrorMessageIfInvalid(event){
     image.setAttribute("src", fieldValid[`${id}`] ? "../images/valid.png" : "../images/invalid.png");
 }
 
-function validateProjectId(event,id=event.id) {
+function validateProjectId(event,id=event.id, editingTable=false) {
     let value = event.value;
     const PATTERN = /^[A-Za-z]([a-zA-Z0-9-_$]){2,9}$/;
     fieldValid[`${id}`] = PATTERN.test(value);
-    showErrorMessageIfInvalid(event);
+    if (!editingTable) showErrorMessageIfInvalid(event);
     buttonEnb();
     return fieldValid[`${id}`];
 }
-function validateOwner(event,id=event.id) {
+function validateOwner(event,id=event.id, editingTable=false) {
     let value = event.value;
     const PATTERN = /^[A-Za-z]([a-zA-Z0-9-]){2,9}$/;
     fieldValid[`${id}`] = PATTERN.test(value);
-    showErrorMessageIfInvalid(event);
+    if (!editingTable) showErrorMessageIfInvalid(event);
     buttonEnb();
     return fieldValid[`${id}`];
 }
-function validateTitle(event,id=event.id) {
+function validateTitle(event,id=event.id, editingTable=false) {
     let value = event.value;
     const PATTERN = /^[A-Za-z]{3,25}$/;
     fieldValid[`${id}`] = PATTERN.test(value);
-    showErrorMessageIfInvalid(event);
+    if (!editingTable) showErrorMessageIfInvalid(event);
     buttonEnb();
     return fieldValid[`${id}`];
 }
-function validateCategory(event,id=event.id) {
+function validateCategory(event,id=event.id, editingTable=false) {
     let value = event.value;
     fieldValid[`${id}`] = value !== "null";
-    showErrorMessageIfInvalid(event);
+    if (!editingTable) showErrorMessageIfInvalid(event);
     buttonEnb();
     return fieldValid[`${id}`];
 }
-function validateHours(event,id=event.id) {
+function validateHours(event,id=event.id, editingTable=false) {
     let value = event.value;
     const PATTERN = /^[0-9]{1,3}$/;
     fieldValid[`${id}`] = PATTERN.test(value);
-    showErrorMessageIfInvalid(event);
+    if (!editingTable) showErrorMessageIfInvalid(event);
     buttonEnb();
     return fieldValid[`${id}`];
 }
-function validateRate(event,id=event.id) {
+function validateRate(event,id=event.id, editingTable=false) {
     let value = event.value;
     const PATTERN = /^[0-9]{1,3}$/;
     fieldValid[`${id}`] = PATTERN.test(value);
-    showErrorMessageIfInvalid(event);
+    if (!editingTable) showErrorMessageIfInvalid(event);
     buttonEnb();
     return fieldValid[`${id}`];
 }
-function validateDescription(event,id=event.id) {
+function validateDescription(event,id=event.id, editingTable=false) {
     let value = event.value;
     const PATTERN = /^[A-Za-z][A-Za-z ]{2,24}$/;
     fieldValid[`${id}`] = PATTERN.test(value);
-    showErrorMessageIfInvalid(event);
+    if (!editingTable) showErrorMessageIfInvalid(event);
     buttonEnb();
     return fieldValid[`${id}`];
 }
-function validateStatus(event,id=event.id) {
+function validateStatus(event,id=event.id, editingTable=false) {
     let value = event.value;
     fieldValid[`${id}`] = value !== "null";
-    showErrorMessageIfInvalid(event);
+    if (!editingTable) showErrorMessageIfInvalid(event);
     buttonEnb();
     return fieldValid[`${id}`];
 }
@@ -242,14 +242,14 @@ function cancelEdit(id) {
 function saveEdit(id){
     let i = Number(id.substring(1));
     resetAllFields();
-    validateProjectId(document.getElementById("edit-id"),"id");
-    validateHours(document.getElementById("edit-hours"), "hours");
-    validateRate(document.getElementById("edit-rate"), "rate");
-    validateDescription(document.getElementById("edit-description"), "description");
-    validateStatus(document.getElementById("edit-status"), "status");
-    validateOwner(document.getElementById("edit-owner"), "owner");
-    validateTitle(document.getElementById("edit-title"), "title");
-    validateCategory(document.getElementById("edit-category"), "category");
+    validateProjectId(document.getElementById("edit-id"),"id", true);
+    validateHours(document.getElementById("edit-hours"), "hours", true);
+    validateRate(document.getElementById("edit-rate"), "rate", true);
+    validateDescription(document.getElementById("edit-description"), "description", true);
+    validateStatus(document.getElementById("edit-status"), "status", true);
+    validateOwner(document.getElementById("edit-owner"), "owner", true);
+    validateTitle(document.getElementById("edit-title"), "title", true);
+    validateCategory(document.getElementById("edit-category"), "category", true);
     let valid = true;
     for (let key in fieldValid) {
         if (fieldValid[key] === false) {
@@ -312,8 +312,16 @@ function deleteProject(id){
 
 function searchByKeyword(){
     let keyWord = document.getElementById("query").value;
+    let queryStatus = document.querySelector("#query-status");
+    let outputSection = document.querySelector("#output-section");
+    let tableParent = document.querySelector("#table-parent");
     let indexArr = [];
-    if (keyWord === "") {projRender(getIndexArrFromProjArr(projArr));}
+    if (keyWord === "") {
+        if (queryStatus !== null){
+            outputSection.removeChild(queryStatus);
+        }
+        projRender(getIndexArrFromProjArr(projArr));
+    }
     else {
         projArr.filter((obj, i) => {
             for (let value of Object.values(obj)){
@@ -323,7 +331,13 @@ function searchByKeyword(){
                 }
             }
         });
-        console.log("called proj render");
+        
+        if (queryStatus === null){
+            queryStatus = document.createElement("div");
+            queryStatus.setAttribute("id", "query-status");
+        }
+        outputSection.insertBefore(queryStatus, tableParent);
+        queryStatus.textContent = `Found ${indexArr.length} projects for the keyword "${keyWord}"`;
         projRender(indexArr);
     }
 }

@@ -96,7 +96,12 @@ input, select{
     margin-bottom: 1rem;
 }
 #query-status{
-    
+    background-color: lightgray;
+    font-size: 1rem;
+    color: darkred;
+    text-align: left;
+    width: 95%;
+    padding: 0.25rem;
 }
 #output-buttons-parent, #input-buttons-parent{
     margin-top: 1rem;
