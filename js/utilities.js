@@ -107,7 +107,7 @@ function validateRate(event,id=event.id) {
 }
 function validateDescription(event,id=event.id) {
     let value = event.value;
-    const PATTERN = /^[A-Za-z]{3,25}$/;
+    const PATTERN = /^[A-Za-z][A-Za-z ]{2,24}$/;
     field_valid[`${id}`] = PATTERN.test(value);
     return field_valid[`${id}`];
 }
