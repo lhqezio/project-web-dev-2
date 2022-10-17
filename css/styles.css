@@ -75,9 +75,6 @@ input, select{
     box-sizing: border-box;
     margin: 0;
 }
-.edit-delete{
-  
-}
 #input-buttons-parent, #output-buttons-parent{
     width: 100%;
     height: 20%;
@@ -98,6 +95,14 @@ input, select{
     height: 2rem;
     margin-bottom: 1rem;
 }
+#query-status{
+    background-color: lightgray;
+    font-size: 1rem;
+    color: darkred;
+    text-align: left;
+    width: 95%;
+    padding: 0.25rem;
+}
 #output-buttons-parent, #input-buttons-parent{
     margin-top: 1rem;
     margin-bottom: 1rem;
@@ -108,9 +113,16 @@ input, select{
 }
 
 table{
-    width: 95%;
+    width: 100%;
     border-collapse: collapse;
     margin-bottom: 2rem;
+    
+}
+#table-parent{
+    width: 100%;
+    overflow-y: scroll;
+    padding: 2rem;
+    box-sizing: border-box;
 }
 #output-table-parent{
     height: 80%;
