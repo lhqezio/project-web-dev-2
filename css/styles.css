@@ -3,7 +3,6 @@ html{
 }
 body{
     margin: 0;
-    height: 100%;
 }
 #parent{
     box-sizing: border-box;
@@ -76,8 +75,7 @@ input, select{
     margin: 0;
 }
 .edit-delete{
-    width: 1.5rem;
-    height: 1.5rem;
+  
 }
 #input-buttons-parent, #output-buttons-parent{
     width: 100%;
@@ -99,9 +97,19 @@ input, select{
     height: 2rem;
     margin-bottom: 1rem;
 }
+#output-buttons-parent, #input-buttons-parent{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+#output-buttons-parent > button, #input-buttons-parent > button{
+    width: 10rem;
+    height: 2rem;
+}
+
 table{
     width: 95%;
     border-collapse: collapse;
+    margin-bottom: 2rem;
 }
 th{
     color: white;
@@ -115,6 +123,8 @@ tr{
 td{
     text-align: center;
     border: 1px solid white;
+    /* display: flex; */
+    width: 95px;
 }
 button{
     height: 60%;
@@ -128,7 +138,10 @@ button:disabled{
     background-color: gray;
 }
 img{
-    width: 10%;
+    width: 30px;
+}
+td img{
+    width: 20px;
 }
 .last-input-container {
     height: 100%;
