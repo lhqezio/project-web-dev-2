@@ -1,3 +1,4 @@
+`use strict`
 function addProject() {
     let project = {
         id: document.getElementById('id').value,

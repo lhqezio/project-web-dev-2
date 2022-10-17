@@ -1,5 +1,5 @@
+`use strict`;
 let field_valid = getFieldValid();
-
 function validateRouter(ev){
     let event = ev.target;
     let id = event.id;

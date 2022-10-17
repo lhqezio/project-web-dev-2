@@ -12,9 +12,7 @@ let fieldValid = {
 let projArr = [];
 
 let tempRow = [];
-
 window.addEventListener('DOMContentLoaded', init);
-
 function init() {
     disableButton();
     document.getElementById(`proj-table`).addEventListener('click', (evt)=>{
