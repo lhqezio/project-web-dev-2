@@ -124,6 +124,14 @@ table{
     padding: 2rem;
     box-sizing: border-box;
 }
+#output-table-parent{
+    height: 80%;
+    overflow: auto;
+    padding: 0;
+    justify-content: center;
+    display: flex;
+    margin-bottom: 30px;
+}
 th{
     color: white;
     background-color: rgb(5, 72, 5);
