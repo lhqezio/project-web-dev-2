@@ -3,6 +3,7 @@ html{
 }
 body{
     margin: 0;
+    height: 100%;
 }
 #parent{
     box-sizing: border-box;
@@ -110,6 +111,14 @@ table{
     width: 95%;
     border-collapse: collapse;
     margin-bottom: 2rem;
+}
+#output-table-parent{
+    height: 80%;
+    overflow: auto;
+    padding: 0;
+    justify-content: center;
+    display: flex;
+    margin-bottom: 30px;
 }
 th{
     color: white;
