@@ -3,7 +3,6 @@ html{
 }
 body{
     margin: 0;
-    height: 100%;
 }
 #parent{
     box-sizing: border-box;
@@ -98,9 +97,19 @@ input, select{
     height: 2rem;
     margin-bottom: 1rem;
 }
+#output-buttons-parent, #input-buttons-parent{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+#output-buttons-parent > button, #input-buttons-parent > button{
+    width: 10rem;
+    height: 2rem;
+}
+
 table{
     width: 95%;
     border-collapse: collapse;
+    margin-bottom: 2rem;
 }
 th{
     color: white;
