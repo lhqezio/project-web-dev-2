@@ -21,11 +21,6 @@ function projRender(indexArr) {
     projArr.forEach(tableCreator);
     console.log(projArr);
     function tableCreator(elem,i){
-        console.log("------");
-        console.log(i);
-        console.log(indexArr);
-        console.log(indexInArr(i, indexArr));
-        console.log("------");
         if (!indexInArr(i, indexArr)) { return; }
         let editImg = document.createElement('img')
         let trashImg = document.createElement('img')
@@ -44,17 +39,15 @@ function projRender(indexArr) {
             cell.textContent = String(value);
             j++;
         }
-        editImg.onload = ()=>{
-            cell = document.createElement('td');
+        editImg.onload = () => {
+            cell = row.insertCell(8);
             cell.appendChild(editImg)
-            row.appendChild(cell);
             // Timeout to allow the image to load
-            setTimeout(()=>{
-                cell = document.createElement('td');
+            setTimeout(() => {
+                cell = row.insertCell(9);
                 cell.appendChild(trashImg)
-                row.appendChild(cell);
                 projTable.appendChild(row);
-            },200)
+            },100)
         }
     }
     document.getElementById('proj-table').replaceChild(projTable, document.getElementById('proj-table').lastChild);

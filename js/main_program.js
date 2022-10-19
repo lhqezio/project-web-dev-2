@@ -35,6 +35,8 @@ function init() {
     document.getElementById('submit').addEventListener('click', addProject);
     document.getElementById('submit').addEventListener('mouseover', validateAllFields);
     document.getElementById('reset').addEventListener("click", clearAllErrorMessages);
+    document.querySelector("#save").addEventListener("click", saveAllProjects);
+    document.querySelector("#clear").addEventListener("click", clearStorage);
     //Use focusout as a trigger to validate the field as blur does not support bubbling
     document.getElementById('input-section').addEventListener('focusout', validateRouter);
     clearAllErrorMessages();

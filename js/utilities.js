@@ -250,7 +250,7 @@ function saveEdit(id){
     validateOwner(document.getElementById("edit-owner"), "owner", true);
     validateTitle(document.getElementById("edit-title"), "title", true);
     validateCategory(document.getElementById("edit-category"), "category", true);
-    let valid = true;
+    let valid = true;       
     for (let key in fieldValid) {
         if (fieldValid[key] === false) {
             valid = false;
@@ -354,6 +354,24 @@ function getIndexArrFromProjArr(projArr){
     for (let i in projArr){
         indexArr.push(+i);
     }
-    console.log(indexArr);
     return indexArr;
 }
+
+let projArrInStorageName = "projects";
+
+function saveAllProjects(){
+    if (projArr.length == 0){
+        alert("There are no projects to save");
+        return;
+    } else if (window.confirm("Are you sure you want to save these projects? Projects that are already in storage will be overwritten")) {
+        localStorage.setItem(projArrInStorageName, JSON.stringify(projArr));
+    }
+}
+
+function clearStorage(){
+    if (window.confirm("Are you sure you want to delete all projects in storage?")){
+        localStorage.removeItem(projArrInStorageName);
+    }
+}
+
+

@@ -133,6 +133,9 @@ th{
 tr{
     background-color: rgb(214, 204, 204);
 }
+tr:nth-child(even){
+    background-color: rgb(255, 243, 243);
+}
 td{
     text-align: center;
     border: 1px solid white;
