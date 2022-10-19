@@ -1,4 +1,8 @@
-`use strict`
+'use strict';
+/**
+ * Hoang
+ * Adds a project to the projArr and renders the UI
+ */
 function addProject() {
     let project = {
         id: document.getElementById('id').value,
@@ -13,6 +17,12 @@ function addProject() {
     projArr.push(project);
     projRender(getIndexArrFromProjArr(projArr));
 }
+
+/**
+ * Marko and Hoang
+ * Helper function to addProject() that renders the UI of the table
+ * @param {Array} indexArr The array of indexes of projects in projArr which should be rendered
+ */
 function projRender(indexArr) {
     console.log(indexArr);
     let projTable = document.createElement('tbody');

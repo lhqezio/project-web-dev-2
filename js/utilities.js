@@ -1,5 +1,10 @@
-`use strict`;
+'use strict';
 
+/**
+ * Hoang
+ * Validates the field depending on what type it is
+ * @param {HTMLElement} ev
+ */
 function validateRouter(ev){
     let event = ev.target;
     let id = event.id;
@@ -31,6 +36,11 @@ function validateRouter(ev){
     }
 }
 
+/**
+ * Marko
+ * Renders the error message UI
+ * @param {HTMLElement} event 
+ */
 function showErrorMessageIfInvalid(event){
     let id = event.id;
     let errorMsg = document.getElementById(id+"-error");
@@ -53,6 +63,14 @@ function showErrorMessageIfInvalid(event){
     image.setAttribute("src", fieldValid[`${id}`] ? "../images/valid.png" : "../images/invalid.png");
 }
 
+/**
+ * Marko and Hoang
+ * Validates the project id field to match the regex pattern
+ * @param {HTMLElement} event 
+ * @param {String} id 
+ * @param {boolean} editingTable 
+ * @returns 
+ */
 function validateProjectId(event,id=event.id, editingTable=false) {
     let value = event.value;
     const PATTERN = /^[A-Za-z]([a-zA-Z0-9-_$]){2,9}$/;
@@ -61,6 +79,15 @@ function validateProjectId(event,id=event.id, editingTable=false) {
     buttonEnb();
     return fieldValid[`${id}`];
 }
+
+/**
+ * Marko and Hoang
+ * Validates the project owner field to match the regex pattern
+ * @param {HTMLElement} event 
+ * @param {String} id 
+ * @param {boolean} editingTable 
+ * @returns 
+ */
 function validateOwner(event,id=event.id, editingTable=false) {
     let value = event.value;
     const PATTERN = /^[A-Za-z]([a-zA-Z0-9-]){2,9}$/;
@@ -69,6 +96,15 @@ function validateOwner(event,id=event.id, editingTable=false) {
     buttonEnb();
     return fieldValid[`${id}`];
 }
+
+/**
+ * Marko and Hoang
+ * Validates the project title field to match the regex pattern
+ * @param {HTMLElement} event 
+ * @param {String} id 
+ * @param {boolean} editingTable 
+ * @returns 
+ */
 function validateTitle(event,id=event.id, editingTable=false) {
     let value = event.value;
     const PATTERN = /^[A-Za-z]{3,25}$/;
@@ -77,6 +113,15 @@ function validateTitle(event,id=event.id, editingTable=false) {
     buttonEnb();
     return fieldValid[`${id}`];
 }
+
+/**
+ * Marko and Hoang
+ * Validates the project category field to match the regex pattern
+ * @param {HTMLElement} event 
+ * @param {String} id 
+ * @param {boolean} editingTable 
+ * @returns 
+ */
 function validateCategory(event,id=event.id, editingTable=false) {
     let value = event.value;
     fieldValid[`${id}`] = value !== "null";
@@ -84,6 +129,15 @@ function validateCategory(event,id=event.id, editingTable=false) {
     buttonEnb();
     return fieldValid[`${id}`];
 }
+
+/**
+ * Marko and Hoang
+ * Validates the project hours field to match the regex pattern
+ * @param {HTMLElement} event 
+ * @param {String} id 
+ * @param {boolean} editingTable 
+ * @returns 
+ */
 function validateHours(event,id=event.id, editingTable=false) {
     let value = event.value;
     const PATTERN = /^[0-9]{1,3}$/;
@@ -92,6 +146,15 @@ function validateHours(event,id=event.id, editingTable=false) {
     buttonEnb();
     return fieldValid[`${id}`];
 }
+
+/**
+ * Marko and Hoang
+ * Validates the project rate field to match the regex pattern
+ * @param {HTMLElement} event 
+ * @param {String} id 
+ * @param {boolean} editingTable 
+ * @returns 
+ */
 function validateRate(event,id=event.id, editingTable=false) {
     let value = event.value;
     const PATTERN = /^[0-9]{1,3}$/;
@@ -100,6 +163,15 @@ function validateRate(event,id=event.id, editingTable=false) {
     buttonEnb();
     return fieldValid[`${id}`];
 }
+
+/**
+ * Marko and Hoang
+ * Validates the project description field to match the regex pattern
+ * @param {HTMLElement} event 
+ * @param {String} id 
+ * @param {boolean} editingTable 
+ * @returns 
+ */
 function validateDescription(event,id=event.id, editingTable=false) {
     let value = event.value;
     const PATTERN = /^[A-Za-z][A-Za-z ]{2,24}$/;
@@ -108,6 +180,15 @@ function validateDescription(event,id=event.id, editingTable=false) {
     buttonEnb();
     return fieldValid[`${id}`];
 }
+
+/**
+ * Marko and Hoang
+ * Validates the project status field to match the regex pattern
+ * @param {HTMLElement} event 
+ * @param {String} id 
+ * @param {boolean} editingTable 
+ * @returns 
+ */
 function validateStatus(event,id=event.id, editingTable=false) {
     let value = event.value;
     fieldValid[`${id}`] = value !== "null";
@@ -115,6 +196,11 @@ function validateStatus(event,id=event.id, editingTable=false) {
     buttonEnb();
     return fieldValid[`${id}`];
 }
+
+/**
+ * Hoang
+ * Enables the add button depending on whether all the fields are valid
+ */
 function buttonEnb(){
     let button = document.getElementById('submit');
     let valid = true;
@@ -128,7 +214,11 @@ function buttonEnb(){
     //console.log(`Is button enabled? ${valid}`);
     button.disabled = !valid;
 }
-//To clear all the error and verified messages
+
+/**
+ * Marko
+ * Clears all the error messages displayed on the screen. Used in combination with reset all fields
+ */
 function clearAllErrorMessages(){
     let errorMessages = document.querySelectorAll(".error-message");
     for (let error of errorMessages){
@@ -142,8 +232,11 @@ function clearAllErrorMessages(){
     disableButton();
 }
 
-
-    function validateAllFields(){
+/**
+ * Marko
+ * Validates all the fields if the have content inside them
+ */
+function validateAllFields(){
     let id = document.getElementById("id");
     let owner = document.getElementById("owner");
     let title = document.getElementById("title");
@@ -163,12 +256,20 @@ function clearAllErrorMessages(){
     if (description.value !== "")validateDescription(description);
 }
 
+/**
+ * Hoang
+ * Sets all keys of fieldValid object to false
+ */
 function resetAllFields(){
     for (let key in fieldValid) {
         fieldValid[key] = false;
     }
 }
-//To clear all input fields and error messages when add button is clicked
+
+/**
+ * Hoang
+ * clears all input fields and error messages when add button is clicked
+ */
 function clearFields() {
     let inputs = document.querySelectorAll('div.input-container input, div.input-container select, div.input-container textarea');
     for (let input of inputs) {
@@ -181,11 +282,21 @@ function clearFields() {
     }
     clearAllErrorMessages();
 }
+
+/**
+ * Hoang
+ * Disables the add button
+ */
 function disableButton(){
     let button = document.getElementById('submit');
     button.disabled = true;
 }
 
+/**
+ * Hoang
+ * Edits the row (project) in the tables
+ * @param {String} id 
+ */
 function editProject(id) {
     id = Number(id.substring(1));
     console.log(id);
@@ -233,12 +344,24 @@ function editProject(id) {
         }, 100);
     };
 }
+
+/**
+ * Hoang
+ * Cancels the edit and cancels any changes made to the row if it wasn't saved
+ * @param {String} id 
+ */
 function cancelEdit(id) {
     let i = Number(id.substring(1));
     let row = tempRow[i];
     let oldRow = document.getElementById(`r${i}`);
     document.getElementById("proj-table-body").replaceChild(row, oldRow);
 }
+
+/**
+ * Hoang
+ * Saves all changes made to a row if they are valid
+ * @param {String} id 
+ */
 function saveEdit(id){
     let i = Number(id.substring(1));
     resetAllFields();
@@ -302,6 +425,12 @@ function saveEdit(id){
         resetAllFields();
     }
 }
+
+/**
+ * Hoang
+ * Deletes a row of the table
+ * @param {String} id 
+ */
 function deleteProject(id){
     if(window.confirm("Are you sure you want to delete this project?")){
         let projId = id.substring(1);
@@ -310,6 +439,10 @@ function deleteProject(id){
     }
 }
 
+/**
+ * Marko
+ * Search feature that looks through every cell value in the table to match the entered keyword
+ */
 function searchByKeyword(){
     let keyWord = document.getElementById("query").value;
     let queryStatus = document.querySelector("#query-status");
@@ -341,6 +474,14 @@ function searchByKeyword(){
         projRender(indexArr);
     }
 }
+
+/**
+ * Marko
+ * checks if the index is inside the array of indexes
+ * @param {Number} i 
+ * @param {Array} arr 
+ * @returns {boolean} true if the index is inside the array, false otherwise
+ */
 function indexInArr(i, arr){
     for (let j in arr){
         if (i === arr[j]){
@@ -349,6 +490,13 @@ function indexInArr(i, arr){
     }
     return false;
 }
+
+/**
+ * Marko
+ * Gets the indexes of all projects from the projArr
+ * @param {Array} projArr 
+ * @returns {Array}
+ */
 function getIndexArrFromProjArr(projArr){
     let indexArr = [];
     for (let i in projArr){

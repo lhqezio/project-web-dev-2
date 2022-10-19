@@ -14,6 +14,10 @@ let projArr = [];
 let tempRow = [];
 window.addEventListener('DOMContentLoaded', init);
 
+/**
+ * Hoang
+ * Adds all event listeners to buttons and containers
+ */
 function init() {
     disableButton();
     document.getElementById("query").addEventListener("input", searchByKeyword);
@@ -41,9 +45,4 @@ function init() {
     document.getElementById('input-section').addEventListener('focusout', validateRouter);
     clearAllErrorMessages();
     validateAllFields();
-    
-}
-
-function getFieldValid(){
-    return fieldValid;
 }
