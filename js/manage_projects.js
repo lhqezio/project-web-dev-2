@@ -15,7 +15,8 @@ function addProject() {
         description: document.getElementById('description').value,
     }
     projArr.push(project);
-    projRender(getIndexArrFromProjArr(projArr));
+    addProjectToTable(project);
+    //projRender(getIndexArrFromProjArr(projArr));
 }
 
 /**
@@ -29,7 +30,9 @@ function projRender(indexArr) {
 
     projArr.forEach(tableCreator);  
     function tableCreator(elem,i){
+        
         if (!indexInArr(i, indexArr)) { return; }
+        addProjectToTable(elem);
         let editImg = document.createElement('img')
         let trashImg = document.createElement('img')
         editImg.src = '../images/edit.png';
@@ -65,4 +68,70 @@ function projRender(indexArr) {
     clearFields();
     disableButton();
     */
+}
+
+/**
+ * Marko and Hoang
+ * Adds several projects to the table. Will add all projects the index of which in the projArr is present in the indexArr
+ * @param {Array} indexArr 
+ */
+function addManyProjectsToTable(indexArr){
+    let table = document.querySelector("table");
+    let tbody = document.querySelector("tbody");
+    table.removeChild(tbody);
+    tbody = document.createElement("tbody");
+    table.appendChild(tbody);
+    projArr.forEach((project, i) => {
+        let addProject = false;
+        indexArr.forEach((index) => {
+            if (i == index) {addProject = true;}
+        });
+        if (addProject){
+            addProjectToTable(project);
+        }
+    });
+}
+
+/**
+ * Marko and Hoang
+ * Add a project to the table as a row
+ * @param {Object} project 
+ */
+function addProjectToTable(project){
+    let tbody = document.querySelector('tbody');
+    //projTable.id = 'proj-table-body';
+    let row = document.createElement("tr");
+    //row.id = `r${i}`;
+    tbody.appendChild(row);
+    let td;
+    let i = 0;
+    for (let val of Object.values(project)){
+        td = row.insertCell(i);
+        td.textContent = val;
+        i++;
+    }
+    addEditAndDeleteIcons(row.insertCell(8), row.insertCell(9));
+}
+
+/**
+ * Marko and Hoand
+ * Adds the edit and delete buttons (images) to the row
+ * @param {HTMLElement} editCell 
+ * @param {HTMLElement} deleteCell 
+ */
+function addEditAndDeleteIcons(editCell, deleteCell){
+    let editImg = document.createElement('img');
+    let trashImg = document.createElement('img');
+    editImg.src = '../images/edit.png';
+   // editImg.setAttribute('id',`e${i}` );
+    editImg.setAttribute('class','table-button');
+    trashImg.src = '../images/trash.png';
+    //trashImg.setAttribute('id',`t${i}` );
+    trashImg.setAttribute('class','table-button');
+    editImg.onload = () => {
+        editCell.appendChild(editImg);
+    }
+    trashImg.onload = () => {
+        deleteCell.appendChild(trashImg);
+    }
 }

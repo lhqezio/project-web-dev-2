@@ -509,12 +509,11 @@ let projArrInStorageName = "projects";
 
 /**
  * Marko
- * @returns 
+ * Saves all project in projArr to local storage, overwriting all projects previously stored
  */
 function saveAllProjects(){
     if (projArr.length == 0){
         alert("There are no projects to save");
-        return;
     } else if (window.confirm("Are you sure you want to save these projects? Projects that are already in storage will be overwritten")) {
         localStorage.setItem(projArrInStorageName, JSON.stringify(projArr));
     }
@@ -522,6 +521,7 @@ function saveAllProjects(){
 
 /**
  * Marko
+ * clears all projects from localStorage
  */
 function clearStorage(){
     if (window.confirm("Are you sure you want to delete all projects in storage?")){
@@ -531,6 +531,7 @@ function clearStorage(){
 
 /**
  * Marko
+ * Saves all project in projArr to local storage, without overwriting all projects previously stored
  */
 function appendAllProjects(){
     if (projArr.length == 0){
@@ -551,6 +552,7 @@ function appendAllProjects(){
 
 /**
  * Marko
+ * Loads all projects from localStorage and renders them in the table
  */
 function loadAllProjects(){
     if (localStorage.getItem(projArrInStorageName) === null){
@@ -558,18 +560,19 @@ function loadAllProjects(){
     } else {
         let projects = JSON.parse(localStorage.getItem(projArrInStorageName));
         projArr = projects;
-        projRender(getIndexArrFromProjArr(projArr));
+        addManyProjectsToTable(getIndexArrFromProjArr(projArr));
     }
 }
 
 /**
- * 
+ * Marko
+ * Sorts the columns by the content inside the clicked column cells
  * @param {HTMLElement} event 
  */
 function sortByColumn(event){
     event.preventDefault();
     // maybe use event.target.childNodes
-    let ths = document.querySelectorAll("thead > tr th");
+    let ths = document.querySelectorAll("th");
     let i = 0;
     for (; i < ths.length - 2; i++){
         if (event.target == ths[i]){ break; }
@@ -579,7 +582,7 @@ function sortByColumn(event){
         let obj2Field = obj2[Object.keys(obj2)[i]];
         return obj1Field > obj2Field ? 1 : obj1Field < obj2Field ? -1 : 0;
     });
-    projRender(getIndexArrFromProjArr(projArr));
+    addManyProjectsToTable(getIndexArrFromProjArr(projArr));
 }
 
 

@@ -36,6 +36,7 @@ function init() {
         }
     });
     document.getElementById('submit').addEventListener('click', addProject);
+    //document.getElementById('submit').addEventListener('click', addManyProjectsToTable);
     document.getElementById('submit').addEventListener('mouseover', validateAllFields);
     document.getElementById('reset').addEventListener("click", clearAllErrorMessages);
     document.querySelector("#save").addEventListener("click", saveAllProjects);
