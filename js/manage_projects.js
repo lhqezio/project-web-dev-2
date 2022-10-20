@@ -24,12 +24,10 @@ function addProject() {
  * @param {Array} indexArr The array of indexes of projects in projArr which should be rendered
  */
 function projRender(indexArr) {
-    console.log(indexArr);
     let projTable = document.createElement('tbody');
     projTable.id = 'proj-table-body';
 
-    projArr.forEach(tableCreator);
-    console.log(projArr);
+    projArr.forEach(tableCreator);  
     function tableCreator(elem,i){
         if (!indexInArr(i, indexArr)) { return; }
         let editImg = document.createElement('img')

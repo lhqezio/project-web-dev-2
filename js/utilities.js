@@ -507,6 +507,10 @@ function getIndexArrFromProjArr(projArr){
 
 let projArrInStorageName = "projects";
 
+/**
+ * Marko
+ * @returns 
+ */
 function saveAllProjects(){
     if (projArr.length == 0){
         alert("There are no projects to save");
@@ -516,10 +520,66 @@ function saveAllProjects(){
     }
 }
 
+/**
+ * Marko
+ */
 function clearStorage(){
     if (window.confirm("Are you sure you want to delete all projects in storage?")){
         localStorage.removeItem(projArrInStorageName);
     }
+}
+
+/**
+ * Marko
+ */
+function appendAllProjects(){
+    if (projArr.length == 0){
+        alert("There are no projects to append");
+    } else if (localStorage.getItem(projArrInStorageName) === null){
+        localStorage.setItem(projArrInStorageName, JSON.stringify(projArr));
+    } else {
+        let projectsInStorage = JSON.parse(localStorage.getItem(projArrInStorageName));
+        let counter = 0;
+        projArr.forEach((proj) => {
+            counter++;
+            projectsInStorage.push(proj);
+        });
+        localStorage.setItem(projArrInStorageName, JSON.stringify(projectsInStorage))
+        alert(counter == 1 ? " 1 item was saved" : counter + " items were saved");
+    }
+}
+
+/**
+ * Marko
+ */
+function loadAllProjects(){
+    if (localStorage.getItem(projArrInStorageName) === null){
+        alert("There are no projects to load");
+    } else {
+        let projects = JSON.parse(localStorage.getItem(projArrInStorageName));
+        projArr = projects;
+        projRender(getIndexArrFromProjArr(projArr));
+    }
+}
+
+/**
+ * 
+ * @param {HTMLElement} event 
+ */
+function sortByColumn(event){
+    event.preventDefault();
+    // maybe use event.target.childNodes
+    let ths = document.querySelectorAll("thead > tr th");
+    let i = 0;
+    for (; i < ths.length - 2; i++){
+        if (event.target == ths[i]){ break; }
+    }
+    projArr.sort((obj1, obj2) => {
+        let obj1Field = obj1[Object.keys(obj1)[i]];
+        let obj2Field = obj2[Object.keys(obj2)[i]];
+        return obj1Field > obj2Field ? 1 : obj1Field < obj2Field ? -1 : 0;
+    });
+    projRender(getIndexArrFromProjArr(projArr));
 }
 
 
