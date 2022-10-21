@@ -454,7 +454,7 @@ function searchByKeyword(){
         if (queryStatus !== null){
             outputSection.removeChild(queryStatus);
         }
-        projRender(getIndexArrFromProjArr(projArr));
+        addManyProjectsToTable(getIndexArrFromProjArr(projArr));
     }
     else {
         projArr.filter((obj, i) => {
@@ -472,7 +472,7 @@ function searchByKeyword(){
         }
         outputSection.insertBefore(queryStatus, tableParent);
         queryStatus.textContent = `Found ${indexArr.length} projects for the keyword "${keyWord}"`;
-        projRender(indexArr);
+        addManyProjectsToTable(indexArr);
     }
 }
 
