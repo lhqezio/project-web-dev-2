@@ -24,8 +24,10 @@ function init() {
     document.getElementById("proj-table").addEventListener('click', (evt) => {
         if (evt.target.id.charAt(0) === 'e'&& evt.target.id.charAt(1) !== 'd'){
             editProject(evt.target.id);
+            console.log(evt.target.id);
         }
         else if (evt.target.id.charAt(0) === 't'){
+            console.log(evt.target.id);
             deleteProject(evt.target.id);
         }
         else if (evt.target.id.charAt(0) === 's'){
