@@ -3,6 +3,15 @@
  * Hoang
  * Adds a project to the projArr and renders the UI
  */
+function last_i(){
+    //By Doing this we will have `holes` in the row id but it will be easier to delete. Saving resources as no complete table re-rendering/mass attribute reseting is needed and does not affect Query Search
+        let i = projArr.length-1;
+        while (document.getElementById(`r${i}`) != null){
+        i++;
+        }
+        return i
+}
+    
 function addProject() {
     let project = {
         id: document.getElementById('id').value,
@@ -18,7 +27,7 @@ function addProject() {
     addProjectToTable(project);
     //projRender(getIndexArrFromProjArr(projArr));
 }
-
+/** 
 /**
  * Marko and Hoang
  * Helper function to addProject() that renders the UI of the table
@@ -60,6 +69,7 @@ function projRender(indexArr) {
                 projTable.appendChild(row);
             },100)
         }
+        console.log(`gay`);
     }
     document.getElementById('proj-table').replaceChild(projTable, document.getElementById('proj-table').lastChild);
 
@@ -87,7 +97,7 @@ function addManyProjectsToTable(indexArr){
             if (i == index) {addProject = true;}
         });
         if (addProject){
-            addProjectToTable(project);
+            addProjectToTable(project,false);
         }
     });
 }
@@ -98,19 +108,20 @@ function addManyProjectsToTable(indexArr){
  * @param {Object} project 
  */
 function addProjectToTable(project){
+    let id = last_i();
     let tbody = document.querySelector('tbody');
     //projTable.id = 'proj-table-body';
     let row = document.createElement("tr");
-    //row.id = `r${i}`;
+    row.id = `r${id}`;
     tbody.appendChild(row);
     let td;
     let i = 0;
-    for (let val of Object.values(project)){
+    for (let val of Object.values(project)) {
         td = row.insertCell(i);
         td.textContent = val;
         i++;
     }
-    addEditAndDeleteIcons(row.insertCell(8), row.insertCell(9));
+    addEditAndDeleteIcons(row.insertCell(8), row.insertCell(9),id);
 }
 
 /**
@@ -119,14 +130,14 @@ function addProjectToTable(project){
  * @param {HTMLElement} editCell 
  * @param {HTMLElement} deleteCell 
  */
-function addEditAndDeleteIcons(editCell, deleteCell){
+function addEditAndDeleteIcons(editCell, deleteCell,id){
     let editImg = document.createElement('img');
     let trashImg = document.createElement('img');
     editImg.src = '../images/edit.png';
-   // editImg.setAttribute('id',`e${i}` );
+    editImg.setAttribute('id',`e${id}` );
     editImg.setAttribute('class','table-button');
     trashImg.src = '../images/trash.png';
-    //trashImg.setAttribute('id',`t${i}` );
+    trashImg.setAttribute('id',`t${id}` );
     trashImg.setAttribute('class','table-button');
     editImg.onload = () => {
         editCell.appendChild(editImg);
