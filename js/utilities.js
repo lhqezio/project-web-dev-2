@@ -6,34 +6,53 @@
  * @param {HTMLElement} ev
  */
 function validateRouter(ev){
-    let event = ev.target;
-    let id = event.id;
+    let elem = ev.target;
+    let id = elem.id;
+    validateSwitch(id,elem);
+}
+/**
+ * Hoang
+ * Switch to Validates the project description field to match the regex pattern
+ * @param {HTMLElement} elem
+ * @param {String} id
+ * @param {boolean} editingTable
+ */
+function validateSwitch(id,elem,editingTable=false){
     switch(id){
         case 'id':
-            validateProjectId(event);
+            validateProjectId(elem,`id`,editingTable);
             break;
         case 'owner':
-            validateOwner(event);
+            validateOwner(elem,`owner`,editingTable);
             break;
         case 'title':
-            validateTitle(event);
+            validateTitle(elem,`title`,editingTable);
             break;
         case 'category':
-            validateCategory(event);
+            validateCategory(elem,`category`,editingTable);
             break;
         case 'hours':
-            validateHours(event);
+            validateHours(elem,`hours`,editingTable);
             break;
         case 'rate':
-            validateRate(event);
+            validateRate(elem,`rate`,editingTable);
             break;
         case 'status':
-            validateStatus(event);
+            validateStatus(elem,`status`,editingTable);
             break;
         case 'description':
-            validateDescription(event);
+            validateDescription(elem,`description`,editingTable);
             break;
     }
+}
+/**
+ * Hoang
+ * Get tbody element
+ * @returns {HTMLElement} tbody
+ */
+function getTbody(){
+    let tbody = document.getElementById("tbody");  
+    return tbody
 }
 
 /**
@@ -302,8 +321,36 @@ function editProject(id) {
     console.log(id);
     let row = document.createElement("tr");
     row.setAttribute("id", `r${id}`);
+    let oldRow = document.getElementById(`r${id}`);
+    tempRow[id]=oldRow.cloneNode(true);
+    oldRow.replaceWith(row);
     let cell;
     let input;
+    let i = 0;
+    console.log(id);
+    for (const [key, value] of Object.entries(projArr[id])) {
+        cell = row.insertCell(i);
+        input = document.createElement("input");
+        input.setAttribute("type", "text");
+        input.setAttribute("id", `ed${key}-${id}`);
+        input.setAttribute("value", String(value));
+        if (key === "id") {
+            input.setAttribute("disabled", "true");
+        }
+        cell.appendChild(input);
+        i++;
+    }
+    addSaveAndCancelIcons(row.insertCell(8), row.insertCell(9) ,id);
+    
+}
+/**
+ * Hoang
+ * Adds the save and cancel icons to the table
+ * @param {HTMLElement} saveCell
+ * @param {HTMLElement} cancelCell
+ * @param {Number} id
+ */
+function addSaveAndCancelIcons(saveCell,cancelCell,id){
     let saveImage = document.createElement("img");
     let cancelImage = document.createElement("img");
     cancelImage.setAttribute("src", "../images/cancel.png");
@@ -312,37 +359,12 @@ function editProject(id) {
     saveImage.setAttribute("src", "../images/save.png");
     saveImage.setAttribute("id", `s${id}`);
     saveImage.setAttribute(`class`, "table-button");
-    let i = 0;
-    console.log(id);
-    for (const [key, value] of Object.entries(projArr[id])) {
-        cell = row.insertCell(i);
-        input = document.createElement("input");
-        input.setAttribute("type", "text");
-        input.setAttribute("id", `edit-${key}`);
-        input.setAttribute("value", String(value));
-        if (key === "id") {
-            input.setAttribute("disabled", "true");
-        }
-        cell.appendChild(input);
-        i++;
-    }
-    console.log(`ran ${i}`);
     saveImage.onload = () => {
-        console.log(`save image loaded`);
-        cell = document.createElement("td");
-        row.appendChild(cell);
-        cell.appendChild(saveImage);
-        // Timeout to allow the image to load
-        setTimeout(() => {
-            console.log(`cancel image loaded`);
-            cell = document.createElement("td");
-            cell.appendChild(cancelImage);
-            row.appendChild(cell);
-            let oldRow = document.getElementById(`r${id}`);
-            tempRow[id] = oldRow.cloneNode(true);
-            document.getElementById("proj-table-body").replaceChild(row, oldRow);
-        }, 100);
-    };
+        saveCell.appendChild(saveImage);
+    }
+    cancelImage.onload = () => {
+        cancelCell.appendChild(cancelImage);
+    }
 }
 
 /**
@@ -354,7 +376,7 @@ function cancelEdit(id) {
     let i = Number(id.substring(1));
     let row = tempRow[i];
     let oldRow = document.getElementById(`r${i}`);
-    document.getElementById("proj-table-body").replaceChild(row, oldRow);
+    getTbody().replaceChild(row, oldRow);
 }
 
 /**
@@ -364,36 +386,15 @@ function cancelEdit(id) {
  */
 function saveEdit(id){
     let i = Number(id.substring(1));
-    resetAllFields();
-    validateProjectId(document.getElementById("edit-id"),"id", true);
-    validateHours(document.getElementById("edit-hours"), "hours", true);
-    validateRate(document.getElementById("edit-rate"), "rate", true);
-    validateDescription(document.getElementById("edit-description"), "description", true);
-    validateStatus(document.getElementById("edit-status"), "status", true);
-    validateOwner(document.getElementById("edit-owner"), "owner", true);
-    validateTitle(document.getElementById("edit-title"), "title", true);
-    validateCategory(document.getElementById("edit-category"), "category", true);
-    let valid = true;
-    for (let key in fieldValid) {
-        if (fieldValid[key] === false) {
-            valid = false;
-            break;
-        }
-    }
+    let valid = editFieldValidation(i);       
     if(valid){
-        let project = {
-            id: document.getElementById("edit-id").value,
-            owner: document.getElementById("edit-owner").value,
-            title: document.getElementById("edit-title").value,
-            category: document.getElementById("edit-category").value,
-            status: document.getElementById("edit-status").value,
-            hours: document.getElementById("edit-hours").value,
-            rate: document.getElementById("edit-rate").value,
-            description: document.getElementById("edit-description").value
-        }
+        let project = {};
+        for(const [key, value] of Object.entries(fieldValid)){ project[key] = document.getElementById(`ed${key}-${i}`).value;}
         projArr.splice(i, 1, project);
         let row = document.createElement("tr");
         row.setAttribute("id", `r${i}`);
+        let oldRow = document.getElementById(`r${i}`);
+        oldRow.replaceWith(row);
         let cell;
         let j = 0;
         for (const [key, value] of Object.entries(projArr[i])) {
@@ -401,29 +402,29 @@ function saveEdit(id){
             cell.innerHTML = String(value);
             j++;
         }
-        let editImg = document.createElement('img');
-        let trashImg = document.createElement('img');
-        editImg.src = '../images/edit.png';
-        editImg.setAttribute('id',`e${i}` );
-        editImg.setAttribute('class','table-button');
-        trashImg.src = '../images/trash.png';
-        trashImg.setAttribute('id',`t${i}` );
-        trashImg.setAttribute('class','table-button');
-        editImg.onload = ()=>{
-            cell = document.createElement('td');
-            cell.appendChild(editImg)
-            row.appendChild(cell);
-            setTimeout(()=>{
-                cell = document.createElement('td');
-                cell.appendChild(trashImg)
-                row.appendChild(cell);
-                document.getElementById("proj-table-body").replaceChild(row, document.getElementById(`r${i}`));
-            },200)
-        }
+        addEditAndDeleteIcons(row.insertCell(8), row.insertCell(9), i);
     } else{
         alert("Invalid data entered,not saved");
         resetAllFields();
     }
+}
+/**
+ * Hoang
+ * Validates all the fields when editing a row
+ * @param {Number} id
+ * @returns {Boolean}
+ */
+function editFieldValidation(id){
+    resetAllFields();
+    for(const [key, value] of Object.entries(fieldValid)){ validateSwitch(key,document.getElementById(`ed${key}-${id}`),true);}
+    let valid = true;       
+    for (let key in fieldValid) {
+        if (fieldValid[key] === false) {
+            valid = false;
+            break;
+        }
+    }
+    return valid;
 }
 
 /**
@@ -435,7 +436,7 @@ function deleteProject(id){
     if(window.confirm("Are you sure you want to delete this project?")){
         let projId = id.substring(1);
         projArr.splice(projId, 1);
-        projRender(getIndexArrFromProjArr(projArr));
+        getTbody().removeChild(document.querySelector(`#r${projId}`));
     }
 }
 
@@ -502,6 +503,87 @@ function getIndexArrFromProjArr(projArr){
     for (let i in projArr){
         indexArr.push(+i);
     }
-    console.log(indexArr);
     return indexArr;
 }
+
+let projArrInStorageName = "projects";
+
+/**
+ * Marko
+ * Saves all project in projArr to local storage, overwriting all projects previously stored
+ */
+function saveAllProjects(){
+    if (projArr.length == 0){
+        alert("There are no projects to save");
+    } else if (window.confirm("Are you sure you want to save these projects? Projects that are already in storage will be overwritten")) {
+        localStorage.setItem(projArrInStorageName, JSON.stringify(projArr));
+    }
+}
+
+/**
+ * Marko
+ * clears all projects from localStorage
+ */
+function clearStorage(){
+    if (window.confirm("Are you sure you want to delete all projects in storage?")){
+        localStorage.removeItem(projArrInStorageName);
+    }
+}
+
+/**
+ * Marko
+ * Saves all project in projArr to local storage, without overwriting all projects previously stored
+ */
+function appendAllProjects(){
+    if (projArr.length == 0){
+        alert("There are no projects to append");
+    } else if (localStorage.getItem(projArrInStorageName) === null){
+        localStorage.setItem(projArrInStorageName, JSON.stringify(projArr));
+    } else {
+        let projectsInStorage = JSON.parse(localStorage.getItem(projArrInStorageName));
+        let counter = 0;
+        projArr.forEach((proj) => {
+            counter++;
+            projectsInStorage.push(proj);
+        });
+        localStorage.setItem(projArrInStorageName, JSON.stringify(projectsInStorage))
+        alert(counter == 1 ? " 1 item was saved" : counter + " items were saved");
+    }
+}
+
+/**
+ * Marko
+ * Loads all projects from localStorage and renders them in the table
+ */
+function loadAllProjects(){
+    if (localStorage.getItem(projArrInStorageName) === null){
+        alert("There are no projects to load");
+    } else {
+        let projects = JSON.parse(localStorage.getItem(projArrInStorageName));
+        projArr = projects;
+        addManyProjectsToTable(getIndexArrFromProjArr(projArr));
+    }
+}
+
+/**
+ * Marko
+ * Sorts the columns by the content inside the clicked column cells
+ * @param {HTMLElement} event 
+ */
+function sortByColumn(event){
+    event.preventDefault();
+    // maybe use event.target.childNodes
+    let ths = document.querySelectorAll("th");
+    let i = 0;
+    for (; i < ths.length - 2; i++){
+        if (event.target == ths[i]){ break; }
+    }
+    projArr.sort((obj1, obj2) => {
+        let obj1Field = obj1[Object.keys(obj1)[i]];
+        let obj2Field = obj2[Object.keys(obj2)[i]];
+        return obj1Field > obj2Field ? 1 : obj1Field < obj2Field ? -1 : 0;
+    });
+    addManyProjectsToTable(getIndexArrFromProjArr(projArr));
+}
+
+
