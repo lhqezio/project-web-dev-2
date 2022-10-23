@@ -341,7 +341,7 @@ function disableButton() {
  */
 function editProject(id) {
     id = Number(id.substring(1));
-    console.log(id);
+    //console.log(id);
     let row = document.createElement("tr");
     row.setAttribute("id", `r${id}`);
     let oldRow = document.getElementById(`r${id}`);
@@ -350,7 +350,7 @@ function editProject(id) {
     let cell;
     let input;
     let i = 0;
-    console.log(id);
+    //console.log(id);
     for (const [key, value] of Object.entries(projArr[getMatchedIndexFromRow(oldRow)])) {
         cell = row.insertCell(i);
         input = document.createElement("input");
@@ -474,7 +474,10 @@ function editFieldValidation(id) {
 function deleteProject(id) {
     if (window.confirm("Are you sure you want to delete this project?")) {
         let projId = id.substring(1);
+        //console.log(id);
+        //console.log(projId);
         projArr.splice(projId, 1);
+        //console.log(projArr.length);
         getTbody().removeChild(document.querySelector(`#r${projId}`));
     }
 }
@@ -610,8 +613,6 @@ function loadAllProjects() {
  * @param {HTMLElement} event
  */
 function sortByColumn(event) {
-    event.preventDefault();
-    // maybe use event.target.childNodes
     let ths = document.querySelectorAll("th");
     let i = 0;
     for (; i < ths.length - 2; i++) {

@@ -1,16 +1,20 @@
 'use strict';
 
+
+let i = 0;
+
 /**
  * Hoang
  * Adds a project to the projArr and renders the UI
  */
 function last_i() {
-    //By Doing this we will have `holes` in the row id but it will be easier to delete. Saving resources as no complete table re-rendering/mass attribute reseting is needed and does not affect Query Search
+    //By Doing this we will have `holes` in the row id but it will be easier to delete. 
+    //Saving resources as no complete table re-rendering/mass attribute reseting is needed and does not affect Query Search
     let i = projArr.length - 1;
-    while (document.getElementById(`r${i}`) != null) {
+    while (document.getElementById(`r${i}`) !==  null) {
         i++;
     }
-    return i
+    return i;
 }
 
 function addProject() {
@@ -25,68 +29,9 @@ function addProject() {
         description: document.getElementById('description').value,
     }
     projArr.push(project);
-    addProjectToTable(project);
-    validateAllFields();
-    clearFields();
+    addProjectToTable(project);  
     clearAllErrorMessages();
-    //projRender(getIndexArrFromProjArr(projArr));
-}
-
-/**
- /**
- * Marko and Hoang
- * Helper function to addProject() that renders the UI of the table
- * @param {Array} indexArr The array of indexes of projects in projArr which should be rendered
- */
-function projRender(indexArr) {
-    let projTable = document.createElement('tbody');
-    projTable.id = 'proj-table-body';
-
-    projArr.forEach(tableCreator);
-
-    function tableCreator(elem, i) {
-
-        if (!indexInArr(i, indexArr)) {
-            return;
-        }
-        addProjectToTable(elem);
-        let editImg = document.createElement('img')
-        let trashImg = document.createElement('img')
-        editImg.src = '../images/edit.png';
-        editImg.setAttribute('id', `e${i}`);
-        editImg.setAttribute('class', 'table-button');
-        trashImg.src = '../images/trash.png';
-        trashImg.setAttribute('id', `t${i}`);
-        trashImg.setAttribute('class', 'table-button');
-        let row = document.createElement('tr');
-        row.id = `r${i}`;
-        let cell;
-        let j = 0;
-        for (const value of Object.values(projArr[i])) {
-            cell = row.insertCell(j);
-            cell.textContent = String(value);
-            j++;
-        }
-        editImg.onload = () => {
-            cell = row.insertCell(8);
-            cell.appendChild(editImg)
-            // Timeout to allow the image to load
-            setTimeout(() => {
-                cell = row.insertCell(9);
-                cell.appendChild(trashImg)
-                projTable.appendChild(row);
-            }, 100)
-        }
-        console.log(`gay`);
-    }
-
-    document.getElementById('proj-table').replaceChild(projTable, document.getElementById('proj-table').lastChild);
-
-    // Disable due to debugging purposes
-    /**
-     clearFields();
-     disableButton();
-     */
+    validateAllFields();
 }
 
 /**
@@ -107,8 +52,9 @@ function addManyProjectsToTable(indexArr) {
                 addProject = true;
             }
         });
-        if (addProject) {
-            addProjectToTable(project, false);
+        if (addProject) {    
+            addProjectToTable(project);
+            
         }
     });
 }
@@ -121,7 +67,6 @@ function addManyProjectsToTable(indexArr) {
 function addProjectToTable(project) {
     let id = last_i();
     let tbody = document.querySelector('tbody');
-    //projTable.id = 'proj-table-body';
     let row = document.createElement("tr");
     row.id = `r${id}`;
     tbody.appendChild(row);
