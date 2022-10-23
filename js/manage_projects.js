@@ -27,7 +27,6 @@ function addProject() {
     projArr.push(project);
     addProjectToTable(project);
     validateAllFields();
-    clearFields();
     clearAllErrorMessages();
     //projRender(getIndexArrFromProjArr(projArr));
 }
