@@ -471,11 +471,13 @@ function editFieldValidation(id) {
  * Deletes a row of the table
  * @param {String} id
  */
-function deleteProject(id) {
+ function deleteProject(id) {
+    let projId = id.substring(1);
+    let elem = document.querySelector(`#r${projId}`)
+    let arrayIndex = getMatchedIndexFromRow(elem)
     if (window.confirm("Are you sure you want to delete this project?")) {
-        let projId = id.substring(1);
-        projArr.splice(projId, 1);
-        getTbody().removeChild(document.querySelector(`#r${projId}`));
+        projArr.splice(arrayIndex, 1);
+        getTbody().removeChild(elem);
     }
 }
 
